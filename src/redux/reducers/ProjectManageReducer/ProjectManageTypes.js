@@ -1,0 +1,4 @@
+export const SHOW_SIDER = 'SHOW_SIDER';
+export const HIDE_SIDER = 'HIDE_SIDER';
+export const SET_LIST_PROJECTS = 'SET_LIST_PROJECTS';
+export const GET_PROJECT_DETAIL = 'GET_PROJECT_DETAIL';

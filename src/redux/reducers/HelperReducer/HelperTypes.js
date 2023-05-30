@@ -1,0 +1,4 @@
+export const SET_ALL_PRIORITY = 'SET_ALL_PRIORITY';
+export const SET_ALL_CATEGORY = 'SET_ALL_CATEGORY';
+export const SET_ALL_STATUS = 'SET_ALL_STATUS';
+export const SET_ALL_TASK_TYPE = 'SET_ALL_TASK_TYPE';
