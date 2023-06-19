@@ -22,6 +22,8 @@ import TaskModal from '../../components/CreateTaskModal/CreateTaskModal';
 import { ShowCreateTaskModal } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
 import { logOut } from '../../redux/slices/UserSlice/UserSlice';
 import { getAllCategoryAction, getAllPriorityAction, getAllStatusAction, getAllTaskTypeAction } from '../../redux/reducers/HelperReducer/HelperActions';
+import './FrameTemplate.scss';
+
 const { Header, Content, Sider } = Layout;
 
 function FrameTemplate() {
@@ -50,7 +52,7 @@ function FrameTemplate() {
       return <Breadcrumb.Item>Create project</Breadcrumb.Item>
     } else if (pathname.includes('profile')) {
       return <Breadcrumb.Item>Profile</Breadcrumb.Item>
-    } else if(pathname.includes('admin')) {
+    } else if (pathname.includes('admin')) {
       return <Breadcrumb.Item>Admin management</Breadcrumb.Item>
     } else {
       return <Breadcrumb.Item>Project management</Breadcrumb.Item>
@@ -103,7 +105,7 @@ function FrameTemplate() {
   return (
     <Layout>
       <Layout>
-        <Sider className='pt-5 flex flex-col justify-center' style={{ minHeight: '100vh' }} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <Sider className='pt-5 flex flex-col justify-center xl:block hidden' style={{ minHeight: '100vh' }} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
           <Menu theme="dark" mode="inline" >
             <Menu.Item icon={<SearchOutlined />} title='Search'>
               Search
@@ -117,7 +119,7 @@ function FrameTemplate() {
           </Menu>
         </Sider>
         <Sider
-          className='pt-5 px-4'
+          className='pt-5 px-4 lg:block hidden'
           style={{
             background: colorBgContainer,
           }}
@@ -125,57 +127,55 @@ function FrameTemplate() {
         >
           <div className='grid grid-cols-3 py-2 border border-b-2 border-t-0 border-x-0 overflow-hidden'>
             <Image
-              className='col-span-1'
-              width={50}
-              height={30}
+              className='col-span-1 w-[50px] h-[30px]'
               src={require("../../assets/logo-jira.png")}
             />
             <div className='infor col-span-2'>
-              <h1 className='text-base font-bold m-0'>{user?.name}</h1>
+              <h1 className='xl:text-base text-sm font-bold m-0'>{user?.name}</h1>
               <p className='text-xs' title={user?.email}>{user?.email}</p>
             </div>
           </div>
           <Menu className='py-5 border border-b-1 border-t-0 border-x-0' selectedKeys={showSelectedTab()} mode="inline" >
-            <Menu.Item key={'1'} icon={<TableOutlined />}>
-              <NavLink>
-                Working Board
+            <Menu.Item key={'1'} icon={<TableOutlined className='icon' />}>
+              <NavLink className="m-0">
+                <span className='text-xs xl:text-sm'>Working Board</span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item key={'2'} icon={<SettingOutlined />}>
+            <Menu.Item key={'2'} icon={<SettingOutlined className='icon' />}>
               <NavLink to='/project-management'>
-                Project Management
+                <span className='text-xs xl:text-sm'>Project Management</span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item key={'3'} icon={<PlusCircleOutlined />}>
+            <Menu.Item key={'3'} icon={<PlusCircleOutlined className='icon' />}>
               <NavLink to='/create-project'>
-                Create Project
+                <span className='text-xs xl:text-sm'>Create Project</span>
               </NavLink>
             </Menu.Item>
           </Menu>
           <Menu className='pt-3' defaultSelectedKeys={['1']} mode="inline" >
-            <Menu.Item icon={<PrinterOutlined />}>
+            <Menu.Item icon={<PrinterOutlined className='icon' />}>
               <NavLink>
-                Releases
+                <span className='text-xs xl:text-sm'>Releases</span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item icon={<FilterOutlined />}>
+            <Menu.Item icon={<FilterOutlined className='icon' />}>
               <NavLink>
-                Issues And Filters
+                <span className='text-xs xl:text-sm'>Issues And Filters</span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item icon={<FileOutlined />}>
+            <Menu.Item icon={<FileOutlined className='icon' />}>
               <NavLink>
-                Pages
+                <span className='text-xs xl:text-sm'>Pages</span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item icon={<ExportOutlined />}>
+            <Menu.Item icon={<ExportOutlined className='icon' />}>
               <NavLink>
-                Reports
+                <span className='text-xs xl:text-sm'>Reports</span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item icon={<CodepenOutlined />}>
+            <Menu.Item icon={<CodepenOutlined className='icon' />}>
               <NavLink>
-                Components
+                <span className='text-xs xl:text-sm'>Components</span>
               </NavLink>
             </Menu.Item>
           </Menu>

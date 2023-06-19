@@ -74,21 +74,21 @@ function SignIn() {
   };
 
   return (
-    <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 border border-2 shadow-xl">
+    <div className="flex flex-col w-4/5 max-w-md p-6 rounded-md sm:p-10 border-2 shadow-xl">
       <div className="mb-8 text-center">
-        <h1 className="my-3 text-4xl font-bold">Sign in</h1>
-        <p className="text-sm text-gray-400">Sign in to access your Jira account</p>
+        <h1 className="my-3 text-2xl md:text-3xl lg:text-4xl font-extrabold sm:font-bold">Sign in</h1>
+        <p className="text-xs sm:text-sm text-gray-400">Sign in to access your Jira account</p>
       </div>
       <form className="space-y-12 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(onSubmit, onErrors)}>
         <div className="space-y-4">
           <div>
-            <label for="email" className="block mb-2 text-sm font-semibold">Email</label>
+            <label for="email" className="block mb-2 text-xs md:text-sm font-semibold">Email</label>
             <input {...register("email")} type="email" name="email" id="email" placeholder="abc@gmail.com" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
             {errors.email && <span className='sm:text-sm text-xs text-red-600'>{errors.email.message}</span>}
           </div>
           <div>
             <div className="flex justify-between mb-2">
-              <label for="password" className="text-sm font-semibold">Password</label>
+              <label for="password" className="text-xs md:text-sm font-semibold">Password</label>
               <a rel="noopener noreferrer" href="#" className="text-xs hover:underline text-gray-400">Forgot password?</a>
             </div>
             <input {...register("password")} type={isShowPass ? "text" : "password"} name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
@@ -106,7 +106,7 @@ function SignIn() {
           <div>
             <button type="submit" className="w-full px-8 py-3 font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-900 transition-all duration-500">Sign in</button>
           </div>
-          <p className="px-6 text-sm text-center text-gray-400">Don't have an account yet?
+          <p className="px-6 text-xs md:text-sm text-center text-gray-400">Don't have an account yet?
             <a rel="noopener noreferrer" href="#" className="hover:underline text-violet-400" onClick={() => navigate('/user/sign-up')}>Sign up</a>
           </p>
         </div>

@@ -1,205 +1,255 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createTaskAPI, deleteCommentAPI, deleteTaskAPI, getAllCommentAPI, getTaskDetailAPI, insertCommentAPI, updateCommentAPI, updateStatusTaskAPI, updateTaskAPI } from "../../../services/ManageTaskService";
+import {
+  createTaskAPI,
+  deleteCommentAPI,
+  deleteTaskAPI,
+  getAllCommentAPI,
+  getTaskDetailAPI,
+  insertCommentAPI,
+  updateCommentAPI,
+  updateStatusTaskAPI,
+  updateTaskAPI,
+} from "../../../services/ManageTaskService";
 import Swal from "sweetalert2";
 
 //async actions
-export const createTaskAction = createAsyncThunk('CREATE_TASK', async (values) => {
+export const createTaskAction = createAsyncThunk(
+  "CREATE_TASK",
+  async (values) => {
     try {
-        const { content } = await createTaskAPI(values);
+      const data = await createTaskAPI(values);
+
+      return data;
     } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Create task failed.',
-            text: 'Please try again !',
-            confirmButtonColor: "#1677ff"
-        });
+      Swal.fire({
+        icon: "error",
+        title: "Create task failed.",
+        text: "Please try again !",
+        confirmButtonColor: "#1677ff",
+      });
     }
+  }
+);
+
+export const updateTaskAction = createAsyncThunk(
+  "UPDATE_TASK",
+  async (values) => {
+    try {
+      const { content } = await updateTaskAPI(values);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Update task failed.",
+        text: "Please try again !",
+        confirmButtonColor: "#1677ff",
+      });
+    }
+  }
+);
+
+export const deleteTaskAction = createAsyncThunk("DELETE_TASK", async (id) => {
+  try {
+    const { content } = await deleteTaskAPI(id);
+
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Delete task successfully !",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Delete task failed.",
+      text: "Please try again !",
+      confirmButtonColor: "#1677ff",
+    });
+  }
 });
 
-export const updateTaskAction = createAsyncThunk('UPDATE_TASK', async (values) => {
+export const updateStatusTaskAction = createAsyncThunk(
+  "UPDATE_STATUS_TASK",
+  async (values) => {
     try {
-        const { content } = await updateTaskAPI(values);
+      const { content } = await updateStatusTaskAPI(values);
     } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Update task failed.',
-            text: 'Please try again !',
-            confirmButtonColor: "#1677ff"
-        });
+      Swal.fire({
+        icon: "error",
+        title: "Update task status failed.",
+        text: "Please try again !",
+        confirmButtonColor: "#1677ff",
+      });
     }
-});
+  }
+);
 
-export const deleteTaskAction = createAsyncThunk('DELETE_TASK', async (id) => {
+export const getTaskDetailAction = createAsyncThunk(
+  "GET_TASK_DETAIL",
+  async (id) => {
     try {
-        const { content } = await deleteTaskAPI(id);
+      const { content } = await getTaskDetailAPI(id);
 
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Delete task successfully !',
-            showConfirmButton: false,
-            timer: 1500
-        });
+      return content;
     } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Delete task failed.',
-            text: 'Please try again !',
-            confirmButtonColor: "#1677ff"
-        });
+      throw error;
     }
-});
+  }
+);
 
-export const updateStatusTaskAction = createAsyncThunk('UPDATE_STATUS_TASK', async (values) => {
+export const getAllCommentAction = createAsyncThunk(
+  "GET_ALL_COMMENT",
+  async (id) => {
     try {
-        const { content } = await updateStatusTaskAPI(values);
-    } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Update task status failed.',
-            text: 'Please try again !',
-            confirmButtonColor: "#1677ff"
-        });
-    }
-});
+      const { content } = await getAllCommentAPI(id);
 
-export const getTaskDetailAction = createAsyncThunk('GET_TASK_DETAIL', async (id) => {
+      return content;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const insertCommentAction = createAsyncThunk(
+  "INSERT_COMMENT",
+  async (values) => {
     try {
-        const { content } = await getTaskDetailAPI(id);
-
-        return content;
+      const { content } = await insertCommentAPI(values);
     } catch (error) {
-        throw error;
+      Swal.fire({
+        icon: "error",
+        title: "Comment failed.",
+        text: "Please try again !",
+        confirmButtonColor: "#1677ff",
+      });
     }
-});
+  }
+);
 
-export const getAllCommentAction = createAsyncThunk('GET_ALL_COMMENT', async (id) => {
+export const updateCommentAction = createAsyncThunk(
+  "UPDATE_COMMENT",
+  async ({ id, commentContent }) => {
     try {
-        const { content } = await getAllCommentAPI(id);
-
-        return content;
+      const { content } = await updateCommentAPI(id, commentContent);
     } catch (error) {
-        throw error;
+      Swal.fire({
+        icon: "error",
+        title: "Update comment failed.",
+        text: "Please try again !",
+        confirmButtonColor: "#1677ff",
+      });
     }
-});
+  }
+);
 
-export const insertCommentAction = createAsyncThunk('INSERT_COMMENT', async (values) => {
+export const deleteCommentAction = createAsyncThunk(
+  "DELETE_COMMENT",
+  async (id) => {
     try {
-        const { content } = await insertCommentAPI(values);
+      const { content } = await deleteCommentAPI(id);
     } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Comment failed.',
-            text: 'Please try again !',
-            confirmButtonColor: "#1677ff"
-        });
+      Swal.fire({
+        icon: "error",
+        title: "Delete comment failed.",
+        text: "Please try again !",
+        confirmButtonColor: "#1677ff",
+      });
     }
-});
-
-export const updateCommentAction = createAsyncThunk('UPDATE_COMMENT', async ({ id, commentContent }) => {
-    try {
-        const { content } = await updateCommentAPI(id, commentContent);
-    } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Update comment failed.',
-            text: 'Please try again !',
-            confirmButtonColor: "#1677ff"
-        });
-    }
-});
-
-export const deleteCommentAction = createAsyncThunk('DELETE_COMMENT', async (id) => {
-    try {
-        const { content } = await deleteCommentAPI(id);
-    } catch (error) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Delete comment failed.',
-            text: 'Please try again !',
-            confirmButtonColor: "#1677ff"
-        });
-    }
-});
-
+  }
+);
 
 const initialState = {
-    openCreateTaskModal: false,
-    openEditTaskModal: false,
-    createTaskSuccess: null,
-    editTaskSuccess: null,
-    taskDetail: null,
-    listComment: null
-}
+  openCreateTaskModal: false,
+  openEditTaskModal: false,
+  createTaskSuccess: null,
+  editTaskSuccess: null,
+  taskDetail: null,
+  listComment: null,
+};
 const TaskManageSlice = createSlice({
-    name: "TASK",
-    initialState,
-    reducers: {
-        ShowCreateTaskModal: state => {
-            return { ...state, openCreateTaskModal: true };
-        },
-        HideCreateTaskModal: state => {
-            return { ...state, openCreateTaskModal: false };
-        },
-        ShowEditTaskModal: state => {
-            return { ...state, openEditTaskModal: true };
-        },
-        HideEditTaskModal: state => {
-            return { ...state, openEditTaskModal: false };
-        },
-        resetCreateTaskSuccess: state => {
-            return { ...state, createTaskSuccess: null };
-        },
-        resetEditTaskSuccess: state => {
-            return { ...state, editTaskSuccess: null };
-        }
+  name: "TASK",
+  initialState,
+  reducers: {
+    ShowCreateTaskModal: (state) => {
+      return { ...state, openCreateTaskModal: true };
     },
-    extraReducers: (builder) => {
-        builder.addCase(createTaskAction.pending, state => {
-            return { ...state, createTaskSuccess: false };
+    HideCreateTaskModal: (state) => {
+      return { ...state, openCreateTaskModal: false };
+    },
+    ShowEditTaskModal: (state) => {
+      return { ...state, openEditTaskModal: true };
+    },
+    HideEditTaskModal: (state) => {
+      return { ...state, openEditTaskModal: false };
+    },
+    resetCreateTaskSuccess: (state) => {
+      return { ...state, createTaskSuccess: null };
+    },
+    resetEditTaskSuccess: (state) => {
+      return { ...state, editTaskSuccess: null };
+    },
+    resetListComment: (state) => {
+      return { ...state, listComment: null };
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(createTaskAction.pending, (state) => {
+      return { ...state, createTaskSuccess: false };
+    });
+    builder.addCase(createTaskAction.fulfilled, (state, action) => {
+      if (action.payload) {
+        return { ...state, createTaskSuccess: true };
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Create task failed.",
+          text: "Task name already existed !",
+          confirmButtonColor: "#1677ff",
         });
-        builder.addCase(createTaskAction.fulfilled, state => {
-            return { ...state, createTaskSuccess: true };
-        });
-        builder.addCase(createTaskAction.rejected, state => {
-            return { ...state, createTaskSuccess: false };
-        });
-        builder.addCase(updateTaskAction.pending, state => {
-            return { ...state, editTaskSuccess: false };
-        });
-        builder.addCase(updateTaskAction.fulfilled, state => {
-            return { ...state, editTaskSuccess: true };
-        });
-        builder.addCase(updateTaskAction.rejected, state => {
-            return { ...state, editTaskSuccess: false };
-        });
-        builder.addCase(getTaskDetailAction.pending, state => {
-            return { ...state, taskDetail: null };
-        });
-        builder.addCase(getTaskDetailAction.fulfilled, (state, action) => {
-            return { ...state, taskDetail: action.payload };
-        });
-        builder.addCase(getTaskDetailAction.rejected, state => {
-            return { ...state, taskDetail: null };
-        });
-        builder.addCase(getAllCommentAction.pending, state => {
-            return { ...state, listComment: null };
-        });
-        builder.addCase(getAllCommentAction.fulfilled, (state, action) => {
-            return { ...state, listComment: action.payload };
-        });
-        builder.addCase(getAllCommentAction.rejected, state => {
-            return { ...state, listComment: null };
-        });
-    }
-})
 
-export const { 
-    ShowCreateTaskModal, 
-    HideCreateTaskModal, 
-    ShowEditTaskModal, 
-    HideEditTaskModal, 
-    resetCreateTaskSuccess,
-    resetEditTaskSuccess 
+        return { ...state, createTaskSuccess: null };
+      }
+    });
+    builder.addCase(createTaskAction.rejected, (state) => {
+      return { ...state, createTaskSuccess: false };
+    });
+    builder.addCase(updateTaskAction.pending, (state) => {
+      return { ...state, editTaskSuccess: false };
+    });
+    builder.addCase(updateTaskAction.fulfilled, (state) => {
+      return { ...state, editTaskSuccess: true };
+    });
+    builder.addCase(updateTaskAction.rejected, (state) => {
+      return { ...state, editTaskSuccess: false };
+    });
+    builder.addCase(getTaskDetailAction.pending, (state) => {
+      return { ...state, taskDetail: null };
+    });
+    builder.addCase(getTaskDetailAction.fulfilled, (state, action) => {
+      return { ...state, taskDetail: action.payload };
+    });
+    builder.addCase(getTaskDetailAction.rejected, (state) => {
+      return { ...state, taskDetail: null };
+    });
+    builder.addCase(getAllCommentAction.pending, (state) => {
+      return { ...state, listComment: null };
+    });
+    builder.addCase(getAllCommentAction.fulfilled, (state, action) => {
+      return { ...state, listComment: action.payload };
+    });
+    builder.addCase(getAllCommentAction.rejected, (state) => {
+      return { ...state, listComment: null };
+    });
+  },
+});
+
+export const {
+  ShowCreateTaskModal,
+  HideCreateTaskModal,
+  ShowEditTaskModal,
+  HideEditTaskModal,
+  resetCreateTaskSuccess,
+  resetEditTaskSuccess,
+  resetListComment,
 } = TaskManageSlice.actions;
 export default TaskManageSlice.reducer;

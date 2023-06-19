@@ -21,7 +21,7 @@ const schema = yup.object({
 })
 
 function EditProject() {
-    const { openSider, projectDetail } = useSelector(state => state.ProjectManageReducer);
+    const { openSider, searchTerm, projectDetail } = useSelector(state => state.ProjectManageReducer);
     const [initialDescription, setInitialDescription] = useState('');
     const { allCategory } = useSelector(state => state.HelperReducer);
     const editorRef = useRef(null);
@@ -61,7 +61,7 @@ function EditProject() {
                 message: "*Required"
             })
         } else {
-            dispatch(updateProjectAction(values.id, values, resetForm));
+            dispatch(updateProjectAction(values.id, values, searchTerm, resetForm));
         }
     }
 
@@ -86,23 +86,22 @@ function EditProject() {
         <Drawer
             title={<h1 className='text-2xl font-bold'>Edit Project</h1>}
             placement={'right'}
-            width={500}
             onClose={onClose}
             open={openSider}
         >
             <form className="space-y-10 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(onSubmit, onErrors)}>
                 <div className="space-y-4">
                     <div>
-                        <label for="projectId" className="block mb-2 text-sm font-semibold text-gray-500">Project ID</label>
-                        <input {...register("id")} type="text" name="projectId" id="projectId" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-gray-400 cursor-not-allowed" value={projectDetail?.id} disabled />
+                        <label for="projectId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Project ID</label>
+                        <input {...register("id")} type="text" name="projectId" id="projectId" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-700 bg-white text-gray-400 cursor-not-allowed" value={projectDetail?.id} disabled />
                     </div>
                     <div>
-                        <label for="projectName" className="block mb-2 text-sm font-semibold text-gray-500">Project Name</label>
-                        <input {...register("projectName")} type="text" name="projectName" id="projectName" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
+                        <label for="projectName" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Project Name</label>
+                        <input {...register("projectName")} type="text" name="projectName" id="projectName" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-700 bg-white text-black" />
                         {errors.projectName && <span className='sm:text-sm text-xs text-red-600'>{errors.projectName.message}</span>}
                     </div>
                     <div>
-                        <label for="description" className="block mb-2 text-sm font-semibold text-gray-500">Description</label>
+                        <label for="description" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Description</label>
                         <Controller
                             name="description"
                             control={control}
@@ -114,7 +113,6 @@ function EditProject() {
                                     onInit={(evt, editor) => editorRef.current = editor}
                                     initialValue={initialDescription}
                                     init={{
-                                        height: 400,
                                         menubar: false,
                                         plugins: [
                                             'advlist autolink lists link image charmap print preview anchor',
@@ -157,8 +155,8 @@ function EditProject() {
                         {errors.description && <span className='sm:text-sm text-xs text-red-600'>{errors.description.message}</span>}
                     </div>
                     <div>
-                        <label for="categoryId" className="block mb-2 text-sm font-semibold text-gray-500">Project Category</label>
-                        <select {...register("categoryId")} name="categoryId" id="categoryId" className="w-1/2 px-3 py-2 border rounded-md border-gray-700 bg-white text-black" >
+                        <label for="categoryId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Project Category</label>
+                        <select {...register("categoryId")} name="categoryId" id="categoryId" className="w-1/2 px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-700 bg-white text-black" >
                             {
                                 allCategory?.map((category) => {
                                     return <option value={category.id} key={category.id}>{category.projectCategoryName}</option>

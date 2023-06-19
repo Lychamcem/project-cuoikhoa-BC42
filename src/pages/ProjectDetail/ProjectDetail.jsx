@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useDispatch } from 'react-redux';
-import { ShowEditTaskModal, getTaskDetailAction, updateStatusTaskAction } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
+import { ShowCreateTaskModal, ShowEditTaskModal, getTaskDetailAction, updateStatusTaskAction } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
 import EditTaskModal from '../../components/EditTaskModal/EditTaskModal';
 import { useParams } from 'react-router-dom';
 import { getProjectDetailAction, removeUserProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
@@ -26,7 +26,7 @@ function ProjectDetail() {
 
   useEffect(() => {
     allStatus?.forEach(statusType => {
-      let lstTaskDetail = projectDetail?.lstTask.find(taskType => taskType.statusName === statusType.statusName).lstTaskDeTail;
+      let lstTaskDetail = projectDetail?.lstTask?.find(item => item.statusName === statusType.statusName).lstTaskDeTail;
 
       taskStatus[statusType.statusName] = {
         id: statusType.statusId,
@@ -34,7 +34,6 @@ function ProjectDetail() {
         items: lstTaskDetail
       }
     })
-
 
     setColumns({ ...taskStatus });
   }, [allStatus, projectDetail]);
@@ -131,36 +130,39 @@ function ProjectDetail() {
   const renderTaskPriority = (priority) => {
     switch (priority) {
       case 'Lowest':
-        return <span className='text-blue-500'>
+        return <span className='text-blue-500 text-xs sm:text-sm lg:text-base'>
           <i className="fa fa-exclamation-circle mr-1"></i>
           {priority}
         </span>
       case 'Low':
-        return <span className='text-green-500'>
+        return <span className='text-green-500 text-xs sm:text-sm lg:text-base'>
           <i className="fa fa-exclamation-circle mr-1"></i>
           {priority}
         </span>
       case 'Medium':
-        return <span className='text-yellow-500'>
+        return <span className='text-yellow-500 text-xs sm:text-sm lg:text-base'>
           <i className="fa fa-exclamation-circle mr-1"></i>
           {priority}
         </span>
       default:
-        return <span className='text-red-500'>
+        return <span className='text-red-500 text-xs sm:text-sm lg:text-base'>
           <i className="fa fa-exclamation-circle mr-1"></i>
           {priority}
         </span>
     }
   }
-
+  console.log('columns: ', columns);
   return (
     <div>
-      <h1 className='text-3xl font-bold mb-4'>{projectDetail?.projectName}</h1>
-      <div className='flex justify-between items-center w-1/2'>
-        <Search placeholder="Search" allowClear style={{ width: 200 }} />
-        <span>Only My Issues</span>
-        <span>Recently Updated</span>
+      <h1 className='text-xl md:text-2xl lg:text-3xl font-bold mb-4'>{projectDetail?.projectName}</h1>
+      <div className='flex justify-between items-center w-4/5 sm:w-1/2'>
+        <Search placeholder="Search" allowClear className='w-[150px] md:w-[170px] lg:w-[200px]' />
+        <span className='text-xs md:text-sm lg:text-base ml-1'>Only My Issues</span>
+        <span className='text-xs md:text-sm lg:text-base'>Recently Updated</span>
       </div>
+      <Button className='mb-2 lg:hidden block mt-5' type='default' onClick={() => dispatch(ShowCreateTaskModal())}>
+        Create task
+      </Button>
       <Popover className='cursor-pointer' placement="bottomRight"
         content={
           <Table
@@ -192,16 +194,16 @@ function ProjectDetail() {
         </Button>
       </Popover>
       <div className='mt-4'>
-        <div className='w-full h-full grid grid-cols-4 gap-2'>
+        <div className='w-full h-full grid grid-cols-2 sm:grid-cols-4 gap-2'>
           <DragDropContext
             onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
           >
             {Object.entries(columns).map(([columnId, column], index) => {
               return (
-                <div className='flex flex-col items-center border border-2 border-gray-300' key={columnId} style={{
+                <div className='flex flex-col items-center border-2 border-gray-300' key={columnId} style={{
                   backgroundColor: '#f4f5f7'
                 }}>
-                  <h1 className='text-left w-full text-sm font-semibold px-2 py-1' style={{
+                  <h1 className='text-left w-full text-xs sm:text-sm font-semibold px-1 py-1 h-[40px]' style={{
                     color: '#5e6c84'
                   }}>{column.name}</h1>
                   <div className='w-full'>
@@ -220,63 +222,65 @@ function ProjectDetail() {
                             }}
                           >
                             {column.items?.map((item, index) => {
-                              return (
-                                <Draggable
-                                  style={{
-                                    width: '100%'
-                                  }}
-                                  key={item.taskId}
-                                  draggableId={columnId}
-                                  index={index}
-                                >
-                                  {(provided, snapshot) => {
-                                    return (
-                                      <Card
-                                        className='mb-3 shadow-xl w-full border border-y-2 border-x-0'
-                                        ref={provided.innerRef}
-                                        {...provided.draggableProps}
-                                        {...provided.dragHandleProps}
-                                        title={item.taskName}
-                                        bordered={false}
-                                        style={{
-                                          userSelect: "none",
-                                          backgroundColor: snapshot.isDragging
-                                            ? "#263B4A"
-                                            : "#fff",
-                                          borderRadius: '0',
-                                          ...provided.draggableProps.style
-                                        }}
-                                        onClick={() => {
-                                          dispatch(ShowEditTaskModal());
-                                          dispatch(getTaskDetailAction(item.taskId));
-                                        }}
-                                      >
-                                        <div className='flex justify-between items-center'>
-                                          {
-                                            renderTaskPriority(item.priorityTask.priority)
-                                          }
-                                          <Avatar.Group
-                                            maxCount={1}
-                                            maxPopoverTrigger="hover"
-                                            size="default"
-                                            maxStyle={{
-                                              color: '#1677ff',
-                                              backgroundColor: '#fde3cf',
-                                              cursor: 'pointer',
-                                            }}
-                                          >
+                              if (item.taskId !== undefined) {
+                                return (
+                                  <Draggable
+                                    style={{
+                                      width: '100%'
+                                    }}
+                                    key={item.taskId}
+                                    draggableId={String(item.taskId)}
+                                    index={index}
+                                  >
+                                    {(provided, snapshot) => {
+                                      return (
+                                        <Card
+                                          className='mb-3 shadow-xl w-full border border-y-2 border-x-0'
+                                          ref={provided.innerRef}
+                                          {...provided.draggableProps}
+                                          {...provided.dragHandleProps}
+                                          title={<span className='text-xs sm:text-sm lg:text-base'>{item.taskName}</span>}
+                                          bordered={false}
+                                          style={{
+                                            userSelect: "none",
+                                            backgroundColor: snapshot.isDragging
+                                              ? "#263B4A"
+                                              : "#fff",
+                                            borderRadius: '0',
+                                            ...provided.draggableProps.style
+                                          }}
+                                          onClick={() => {
+                                            dispatch(ShowEditTaskModal());
+                                            dispatch(getTaskDetailAction(item.taskId));
+                                          }}
+                                        >
+                                          <div className='flex justify-between items-center'>
                                             {
-                                              item.assigness.map(joiner => (
-                                                <Avatar src={joiner.avatar} title={joiner.name} key={joiner.id} />
-                                              ))
+                                              renderTaskPriority(item.priorityTask.priority)
                                             }
-                                          </Avatar.Group>
-                                        </div>
-                                      </Card>
-                                    );
-                                  }}
-                                </Draggable>
-                              );
+                                            <Avatar.Group
+                                              maxCount={1}
+                                              maxPopoverTrigger="hover"
+                                              size="small"
+                                              maxStyle={{
+                                                color: '#1677ff',
+                                                backgroundColor: '#fde3cf',
+                                                cursor: 'pointer',
+                                              }}
+                                            >
+                                              {
+                                                item.assigness.map(joiner => (
+                                                  <Avatar src={joiner.avatar} title={joiner.name} key={joiner.id} />
+                                                ))
+                                              }
+                                            </Avatar.Group>
+                                          </div>
+                                        </Card>
+                                      );
+                                    }}
+                                  </Draggable>
+                                );
+                              }
                             })}
                             {provided.placeholder}
                           </div>

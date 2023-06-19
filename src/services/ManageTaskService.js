@@ -1,7 +1,7 @@
 import axiosService from "./BaseService";
 
 export const createTaskAPI = async (values) => {
-    const { data } = await axiosService.post("/Project/createTask", values);
+    const data = await axiosService.post("/Project/createTask", values);
 
     return data;
 }

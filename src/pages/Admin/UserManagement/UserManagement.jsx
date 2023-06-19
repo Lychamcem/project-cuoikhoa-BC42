@@ -32,7 +32,7 @@ const schema = yup.object({
 function UserManagement() {
     const columns = [
         {
-            title: 'ID',
+            title: <span className='text-xs md:text-sm lg:text-base'>ID</span>,
             dataIndex: 'userId',
             key: 'userId',
             sorter: (a, b) => a.userId - b.userId,
@@ -40,7 +40,7 @@ function UserManagement() {
             width: '10%'
         },
         {
-            title: 'Email',
+            title: <span className='text-xs md:text-sm lg:text-base'>Email</span>,
             dataIndex: 'email',
             key: 'email',
             render: (text, user) => {
@@ -49,7 +49,7 @@ function UserManagement() {
             width: '25%'
         },
         {
-            title: 'Name',
+            title: <span className='text-xs md:text-sm lg:text-base'>Name</span>,
             dataIndex: 'name',
             key: 'name',
             render: (text, user) => {
@@ -58,7 +58,7 @@ function UserManagement() {
             width: '25%'
         },
         {
-            title: 'Phone Number',
+            title: <span className='text-xs md:text-sm lg:text-base'>Phone number</span>,
             dataIndex: 'phoneNumber',
             key: 'phoneNumber',
             render: (text, user) => {
@@ -67,17 +67,17 @@ function UserManagement() {
             width: '20%'
         },
         {
-            title: 'Action',
+            title: <span className='text-xs md:text-sm lg:text-base'>Action</span>,
             key: 'action',
             render: (text, user) => {
                 return <div className='flex justify-center items-center'>
-                    <Button className='mr-2' type="primary" ghost onClick={() => {
+                    <Button className='mr-2' type="primary" size='small' ghost onClick={() => {
                         setOpenSider(true);
                         setUserSelected(user);
                     }}>
                         Edit
                     </Button>
-                    <Button type="primary" danger ghost onClick={() => {
+                    <Button type="primary" size='small' danger ghost onClick={() => {
                         dispatch(deleteUserAction(user.userId, searchTerm));
                     }}>
                         Delete
@@ -158,6 +158,7 @@ function UserManagement() {
                 }} onChange={handleChange} style={{ width: 200 }} />
             </div>
             <Table
+                scroll={{ x: 400 }}
                 columns={columns}
                 pagination={{
                     position: ['bottomRight'],
@@ -168,36 +169,30 @@ function UserManagement() {
             <Drawer
                 title={<h1 className='text-2xl font-bold'>Edit User</h1>}
                 placement={'right'}
-                width={500}
                 onClose={onClose}
                 open={openSider}
             >
                 <form className="space-y-10 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(onSubmit, onErrors)}>
                     <div className="space-y-4">
                         <div>
-                            <label for="id" className="block mb-2 text-sm font-semibold text-gray-500">User ID</label>
-                            <input {...register("id")} type="text" name="id" id="id" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-gray-400 cursor-not-allowed" disabled />
+                            <label for="id" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">User ID</label>
+                            <input {...register("id")} type="text" name="id" id="id" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-gray-400 cursor-not-allowed" disabled />
                         </div>
                         <div>
-                            <label for="name" className="block mb-2 text-sm font-semibold text-gray-500">Name</label>
-                            <input {...register("name")} type="text" name="name" id="name" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" />
+                            <label for="name" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Name</label>
+                            <input {...register("name")} type="text" name="name" id="name" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-black" />
                             {errors.name && <span className='sm:text-sm text-xs text-red-600'>{errors.name.message}</span>}
                         </div>
                         <div>
-                            <label for="email" className="block mb-2 text-sm font-semibold text-gray-500">Email</label>
-                            <input {...register("email")} type="email" name="email" id="email" placeholder="abc@gmail.com" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" />
+                            <label for="email" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Email</label>
+                            <input {...register("email")} type="email" name="email" id="email" placeholder="abc@gmail.com" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-black" />
                             {errors.email && <span className='sm:text-sm text-xs text-red-600'>{errors.email.message}</span>}
                         </div>
                         <div>
-                            <label for="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-500">Phone Number</label>
-                            <input {...register("phoneNumber")} type="text" name="phoneNumber" id="phoneNumber" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" />
+                            <label for="phoneNumber" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Phone Number</label>
+                            <input {...register("phoneNumber")} type="text" name="phoneNumber" id="phoneNumber" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-black" />
                             {errors.phoneNumber && <span className='sm:text-sm text-xs text-red-600'>{errors.phoneNumber.message}</span>}
                         </div>
-                        {/* <div>
-                            <label for="password" className="block mb-2 text-sm font-semibold text-gray-500">Password</label>
-                            <input {...register("password")} type={isShowPass ? "text" : "password"} name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" />
-                            <Checkbox onChange={handleChangeShowPass}>Show password</Checkbox>
-                        </div> */}
                     </div>
                     <div>
                         <button type='button' className='text-white bg-red-500 rounded-sm px-4 py-2 mr-2 hover:bg-red-700 transition-all duration-500' onClick={onClose}>Cancel</button>

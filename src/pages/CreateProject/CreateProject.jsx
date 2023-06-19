@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({
   projectName: yup
@@ -19,6 +20,9 @@ const schema = yup.object({
     .required("*Required"),
   categoryId: yup
     .number()
+    .test("choose-category", "*Required", function (value) {
+      return value !== -1;
+    })
     .required("*Required")
 })
 
@@ -26,6 +30,7 @@ function CreateProject() {
   const { allCategory } = useSelector(state => state.HelperReducer);
   const editorRef = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -38,7 +43,7 @@ function CreateProject() {
       projectName: '',
       alias: '',
       description: '',
-      categoryId: 0
+      categoryId: -1
     },
     mode: "onChange",
     resolver: yupResolver(schema)
@@ -51,26 +56,26 @@ function CreateProject() {
   const onErrors = (errors) => {
     console.log('errors: ', errors);
   }
-
+  console.log("allCategory: ", allCategory);
   return (
     <div style={{
       width: '70%'
     }}>
-      <h1 className='text-3xl font-bold mb-4 text-left'>Create Project</h1>
+      <h1 className='text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-left'>Create Project</h1>
       <form className="space-y-10 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(onSubmit, onErrors)}>
         <div className="space-y-4">
           <div>
-            <label for="projectName" className="block mb-2 text-sm font-semibold text-gray-500">Project Name</label>
-            <input {...register("projectName")} type="text" name="projectName" id="projectName" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
+            <label for="projectName" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Project Name</label>
+            <input {...register("projectName")} type="text" name="projectName" id="projectName" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-700 bg-white text-black" />
             {errors.projectName && <span className='sm:text-sm text-xs text-red-600'>{errors.projectName.message}</span>}
           </div>
           <div>
-            <label for="alias" className="block mb-2 text-sm font-semibold text-gray-500">Alias</label>
-            <input {...register("alias")} type="text" name="alias" id="alias" className="w-full px-3 py-2 border rounded-md border-gray-700 bg-white text-black" />
+            <label for="alias" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Alias</label>
+            <input {...register("alias")} type="text" name="alias" id="alias" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-700 bg-white text-black" />
             {errors.alias && <span className='sm:text-sm text-xs text-red-600'>{errors.alias.message}</span>}
           </div>
           <div>
-            <label for="description" className="block mb-2 text-sm font-semibold text-gray-500">Description</label>
+            <label for="description" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Description</label>
             <Controller
               name="description"
               control={control}
@@ -82,7 +87,6 @@ function CreateProject() {
                   onInit={(evt, editor) => editorRef.current = editor}
                   initialValue=""
                   init={{
-                    height: 400,
                     menubar: false,
                     plugins: [
                       'advlist autolink lists link image charmap print preview anchor',
@@ -124,19 +128,20 @@ function CreateProject() {
             {errors.description && <span className='sm:text-sm text-xs text-red-600'>{errors.description.message}</span>}
           </div>
           <div>
-            <label for="categoryId" className="block mb-2 text-sm font-semibold text-gray-500">Project Category</label>
-            <select {...register("categoryId")} name="categoryId" id="categoryId" className="w-1/2 px-3 py-2 border rounded-md border-gray-700 bg-white text-black" >
+            <label for="categoryId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Project Category</label>
+            <select {...register("categoryId")} name="categoryId" id="categoryId" className="w-1/2 px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-700 bg-white text-black">
               {
                 allCategory?.map((category) => {
                   return <option value={category.id} key={category.id}>{category.projectCategoryName}</option>
                 })
               }
-            </select> <br />
+            </select>
+            <br />
             {errors.categoryId && <span className='sm:text-sm text-xs text-red-600'>{errors.categoryId.message}</span>}
           </div>
         </div>
         <div>
-          <button type='button' className='text-white bg-red-500 rounded-sm px-4 py-2 mr-2 hover:bg-red-700 transition-all duration-500'>Cancel</button>
+          <button type='button' className='text-white bg-red-500 rounded-sm px-4 py-2 mr-2 hover:bg-red-700 transition-all duration-500' onClick={() => navigate(-1)}>Cancel</button>
           <button type='submit' className='text-white bg-blue-500 rounded-sm px-4 py-2 hover:bg-blue-700 transition-all duration-500'>Save</button>
         </div>
       </form>

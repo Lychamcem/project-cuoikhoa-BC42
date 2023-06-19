@@ -6,14 +6,14 @@ function AccessTemplate() {
     <div className='w-full grid grid-cols-12' style={{
       height: '100vh'
     }}>
-      <div className='col-span-5 w-full h-full flex justify-center items-center' style={{
+      <div className='col-span-5 hidden lg:flex w-full h-full justify-center items-center' style={{
         background: '#1677ff'
       }}>
         <img src={require("../../assets/logo-access-template.png")} alt='logo' style={{
           width: '80%'
         }} />
       </div>
-      <div className='col-span-7 w-full h-full flex justify-center items-center'>
+      <div className='col-span-12 lg:col-span-7 w-full h-full flex justify-center items-center'>
         <Outlet />
       </div>
     </div>

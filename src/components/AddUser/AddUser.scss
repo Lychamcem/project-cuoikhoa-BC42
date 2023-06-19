@@ -1,0 +1,29 @@
+.ant-btn.addUser-btn {
+    &.ant-btn-circle{
+        min-width: 0 !important;
+    }
+}
+
+//responsive
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+  .ant-btn.addUser-btn {
+    &.ant-btn-icon-only{
+        width: 25px !important;
+        height: 25px !important;
+        & .anticon {
+            font-size: 10px !important;
+        }
+    }
+  }
+}
+@media screen and (min-width: 374.98px) and (max-width: 414.02px)  {
+  .ant-btn.addUser-btn {
+    &.ant-btn-icon-only{
+        width: 20px !important;
+        height: 20px !important;
+        & .anticon {
+            font-size: 6px !important;
+        }
+    }
+  }
+}

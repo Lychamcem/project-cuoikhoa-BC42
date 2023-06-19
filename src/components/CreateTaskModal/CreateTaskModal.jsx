@@ -117,7 +117,7 @@ function CreateTaskModal() {
         });
     }
 
-    if(createTaskSuccess) {
+    if (createTaskSuccess) {
         resetFormFunction();
 
         Swal.fire({
@@ -136,12 +136,12 @@ function CreateTaskModal() {
 
     return (
         <>
-            <Modal width={'60%'} title={<h1 className='text-3xl font-bold mb-4 text-left'>Create Task</h1>} open={openCreateTaskModal} onOk={handleOk} onCancel={handleCancel} footer={false}>
+            <Modal width={'60%'} title={<h1 className='text-xl md:text-2xl lg:text-3xl font-bold mb-4 text-left'>Create Task</h1>} open={openCreateTaskModal} onOk={handleOk} onCancel={handleCancel} footer={false}>
                 <form className="space-y-10 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(onSubmit, onErrors)}>
                     <div className="space-y-4">
                         <div>
-                            <label for="projectId" className="block mb-2 text-sm font-semibold text-gray-500">Project Name</label>
-                            <select {...register("projectId")} name="projectId" id="projectId" className="w-full px-3 py-2 border  border-gray-700 bg-white text-black" onChange={(event) => {
+                            <label for="projectId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Project Name</label>
+                            <select {...register("projectId")} name="projectId" id="projectId" className="w-full px-2 py-1 md:px-3 md:py-2 border  border-gray-700 bg-white text-black" onChange={(event) => {
                                 dispatch(getProjectDetailAction(event.target.value));
                             }}>
                                 {
@@ -153,12 +153,12 @@ function CreateTaskModal() {
                             {errors.projectId && <span className='sm:text-sm text-xs text-red-600'>{errors.projectId.message}</span>}
                         </div>
                         <div>
-                            <label for="taskName" className="w-full block mb-2 text-sm font-semibold text-gray-500">Task Name</label>
-                            <input {...register("taskName")} type="text" name="taskName" id="taskName" className="w-full px-3 py-2 border  border-gray-700 bg-white text-black" />
+                            <label for="taskName" className="w-full block mb-2 text-xs md:text-sm font-semibold text-gray-500">Task Name</label>
+                            <input {...register("taskName")} type="text" name="taskName" id="taskName" className="w-full px-2 py-1 md:px-3 md:py-2 border  border-gray-700 bg-white text-black" />
                             {errors.taskName && <span className='sm:text-sm text-xs text-red-600'>{errors.taskName.message}</span>}
                         </div>
                         <div>
-                            <label for="description" className="block mb-2 text-sm font-semibold text-gray-500">Description</label>
+                            <label for="description" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Description</label>
                             <Controller
                                 name="description"
                                 control={control}
@@ -170,7 +170,6 @@ function CreateTaskModal() {
                                         onInit={(evt, editor) => editorRef.current = editor}
                                         initialValue=""
                                         init={{
-                                            height: 400,
                                             menubar: false,
                                             plugins: [
                                                 'advlist autolink lists link image charmap print preview anchor',
@@ -211,10 +210,10 @@ function CreateTaskModal() {
                             />
                             {errors.description && <span className='sm:text-sm text-xs text-red-600'>{errors.description.message}</span>}
                         </div>
-                        <div className='grid grid-cols-3 gap-1'>
+                        <div className='grid grid-cols-1 md:grid-cols-3 gap-1'>
                             <div>
-                                <label for="typeId" className="block mb-2 text-sm font-semibold text-gray-500">Task Type</label>
-                                <select {...register("typeId")} name="typeId" id="typeId" className="w-full px-3 py-2 border  border-gray-700 bg-white text-black">
+                                <label for="typeId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Task Type</label>
+                                <select {...register("typeId")} name="typeId" id="typeId" className="w-full px-2 py-1 md:px-3 md:py-2 border  border-gray-700 bg-white text-black">
                                     {
                                         allTaskType?.map(type => (
                                             <option value={type.id} key={type.id}>
@@ -226,8 +225,8 @@ function CreateTaskModal() {
                                 {errors.typeId && <span className='sm:text-sm text-xs text-red-600'>{errors.typeId.message}</span>}
                             </div>
                             <div>
-                                <label for="statusId" className="block mb-2 text-sm font-semibold text-gray-500">Status</label>
-                                <select {...register("statusId")} name="statusId" id="statusId" className="w-full px-3 py-2 border  border-gray-700 bg-white text-black" >
+                                <label for="statusId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Status</label>
+                                <select {...register("statusId")} name="statusId" id="statusId" className="w-full px-2 py-1 md:px-3 md:py-2 border  border-gray-700 bg-white text-black" >
                                     {
                                         allStatus?.map(status => (
                                             <option value={status.statusId} key={status.statusId}>{status.statusName}</option>
@@ -237,8 +236,8 @@ function CreateTaskModal() {
                                 {errors.statusId && <span className='sm:text-sm text-xs text-red-600'>{errors.statusId.message}</span>}
                             </div>
                             <div>
-                                <label for="originalEstimate" className="w-full block mb-2 text-sm font-semibold text-gray-500">Original Estimate (hours)</label>
-                                <input {...register("originalEstimate")} type="number" name="originalEstimate" id="originalEstimate" min={0} className="w-full px-3 py-2 border  border-gray-700 bg-white text-black" onChange={(event) => {
+                                <label for="originalEstimate" className="w-full block mb-2 text-xs md:text-sm font-semibold text-gray-500">Original Estimate (hours)</label>
+                                <input {...register("originalEstimate")} type="number" name="originalEstimate" id="originalEstimate" min={0} className="w-full px-2 py-1 md:px-3 md:py-2 border  border-gray-700 bg-white text-black" onChange={(event) => {
                                     setTimeEstimate({
                                         total: event.target.value,
                                         spent: 0,
@@ -248,11 +247,11 @@ function CreateTaskModal() {
                                 {errors.originalEstimate && <span className='sm:text-sm text-xs text-red-600'>{errors.originalEstimate.message}</span>}
                             </div>
                         </div>
-                        <div className='grid grid-cols-2'>
-                            <div className='border border-2 border-l-0 border-y-0 pr-4'>
+                        <div className='grid grid-cols-1 md:grid-cols-2'>
+                            <div className='border-2 border-l-0 border-y-0 pr-4'>
                                 <div className='mb-1'>
-                                    <label for="priorityId" className="block mb-2 text-sm font-semibold text-gray-500">Priority</label>
-                                    <select {...register("priorityId")} name="priorityId" id="priorityId" className="w-full px-3 py-2 border  border-gray-700 bg-white text-black" >
+                                    <label for="priorityId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Priority</label>
+                                    <select {...register("priorityId")} name="priorityId" id="priorityId" className="w-full px-2 py-1 md:px-3 md:py-2 border  border-gray-700 bg-white text-black" >
                                         {
                                             allPriority?.map(statusType => (
                                                 <option value={statusType.priorityId} key={statusType.priorityId}>{statusType.priority}</option>
@@ -262,7 +261,7 @@ function CreateTaskModal() {
                                     {errors.priorityId && <span className='sm:text-sm text-xs text-red-600'>{errors.priorityId.message}</span>}
                                 </div>
                                 <div>
-                                    <label for="listUserAsign" className="block mb-2 text-sm font-semibold text-gray-500">Assignees</label>
+                                    <label for="listUserAsign" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Assignees</label>
                                     <Dropdown
                                         menu={
                                             {
@@ -310,9 +309,9 @@ function CreateTaskModal() {
                                     </Dropdown>
                                 </div>
                             </div>
-                            <div className='pl-4'>
+                            <div className='mt-3 md:mt-0 md:pl-4'>
                                 <div>
-                                    <label for="timeTracking" className="block mb-2 text-sm font-semibold text-gray-500">Time Tracking</label>
+                                    <label for="timeTracking" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Time Tracking</label>
                                     <Slider
                                         defaultValue={0}
                                         min={0}
@@ -332,8 +331,8 @@ function CreateTaskModal() {
                                 </div>
                                 <div className='grid grid-cols-2 gap-2'>
                                     <div>
-                                        <label for="timeTrackingSpent" className="block mb-2 text-sm font-semibold text-gray-500">Time Tracking Spent</label>
-                                        <input {...register("timeTrackingSpent")} type="number" name="timeTrackingSpent" id="timeTrackingSpent" min={0} className="w-full px-3 py-1 border border-gray-700 bg-white text-black" value={timeEstimate.spent} onChange={(event) => {
+                                        <label for="timeTrackingSpent" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Time Tracking Spent</label>
+                                        <input {...register("timeTrackingSpent")} type="number" name="timeTrackingSpent" id="timeTrackingSpent" min={0} className="w-full px-2 py-1 md:px-3 md:py-2 border border-gray-700 bg-white text-black" value={timeEstimate.spent} onChange={(event) => {
                                             setTimeEstimate({
                                                 ...timeEstimate,
                                                 spent: event.target.value,
@@ -342,13 +341,13 @@ function CreateTaskModal() {
                                         }} />
                                     </div>
                                     <div>
-                                        <label for="timeTrackingRemaining" className="block mb-2 text-sm font-semibold text-gray-500">Time Tracking Remaining</label>
-                                        <input {...register("timeTrackingRemaining")} type="number" name="timeTrackingRemaining" id="timeTrackingRemaining" min={0} className="w-full px-3 py-1 border border-gray-700 bg-white text-black" value={timeEstimate.remaining} onChange={(event) => {
+                                        <label for="timeTrackingRemaining" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Time Tracking Remaining</label>
+                                        <input {...register("timeTrackingRemaining")} type="number" name="timeTrackingRemaining" id="timeTrackingRemaining" min={0} className="w-full px-2 py-1 md:px-3 md:py-2 border border-gray-700 bg-white text-black" value={timeEstimate.remaining} onChange={(event) => {
                                             setTimeEstimate({
                                                 ...timeEstimate,
                                                 spent: timeEstimate.total - event.target.value,
                                                 remaining: event.target.value
-                                            })
+                                            });
                                         }} />
                                     </div>
                                 </div>
@@ -356,7 +355,7 @@ function CreateTaskModal() {
                         </div>
                     </div>
                     <div>
-                        <button type='button' className='text-white bg-red-500 rounded-sm px-4 py-2 mr-2 hover:bg-red-700 transition-all duration-500'>Cancel</button>
+                        <button type='button' className='text-white bg-red-500 rounded-sm px-4 py-2 mr-2 hover:bg-red-700 transition-all duration-500' onClick={handleCancel}>Cancel</button>
                         <button type='submit' className='text-white bg-blue-500 rounded-sm px-4 py-2 hover:bg-blue-700 transition-all duration-500'>Save</button>
                     </div>
                 </form>

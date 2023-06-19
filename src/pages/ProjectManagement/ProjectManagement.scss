@@ -1,0 +1,38 @@
+.ant-table-wrapper {
+  .ant-table-pagination {
+    align-items: center !important;
+    .ant-pagination-item {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+//responsive
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+  .ant-avatar-lg {
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 28px !important;
+  }
+}
+@media screen and (min-width: 374.98px) and (max-width: 414.02px) {
+  .ant-avatar-lg {
+    width: 20px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+  }
+  .ant-table-wrapper {
+    .ant-table-pagination {
+      flex-wrap: nowrap !important;
+      &.ant-pagination {
+        margin: 10px 0 !important;
+      }
+      .ant-pagination-item {
+        min-width: 20px !important;
+        height: 20px !important;
+        line-height: 20px !important;
+      }
+    }
+  }
+}

@@ -71,7 +71,7 @@ function UserProfile() {
     setIsShowPass(!isShowPass);
   };
 
-  if(editUserSuccess) {
+  if (editUserSuccess) {
     Swal.fire({
       position: 'top-end',
       icon: 'success',
@@ -98,27 +98,27 @@ function UserProfile() {
     <form className="space-y-10 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(onSubmit, onErrors)}>
       <div className="space-y-4">
         <div>
-          <label for="userId" className="block mb-2 text-sm font-semibold text-gray-500">User ID</label>
-          <input type="text" name="userId" id="userId" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-gray-400 cursor-not-allowed" value={user?.id} disabled />
+          <label for="userId" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">User ID</label>
+          <input type="text" name="userId" id="userId" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-gray-400 cursor-not-allowed" value={user?.id} disabled />
         </div>
         <div>
-          <label for="name" className="block mb-2 text-sm font-semibold text-gray-500">Name</label>
-          <input {...register("name")} type="text" name="name" id="name" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
+          <label for="name" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Name</label>
+          <input {...register("name")} type="text" name="name" id="name" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
           {errors.name && <span className='sm:text-sm text-xs text-red-600'>{errors.name.message}</span>}
         </div>
         <div>
-          <label for="email" className="block mb-2 text-sm font-semibold text-gray-500">Email</label>
-          <input {...register("email")} type="email" name="email" id="email" placeholder="abc@gmail.com" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
+          <label for="email" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Email</label>
+          <input {...register("email")} type="email" name="email" id="email" placeholder="abc@gmail.com" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
           {errors.email && <span className='sm:text-sm text-xs text-red-600'>{errors.email.message}</span>}
         </div>
         <div>
-          <label for="phoneNumber" className="block mb-2 text-sm font-semibold text-gray-500">Phone Number</label>
-          <input {...register("phoneNumber")} type="text" name="phoneNumber" id="phoneNumber" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
+          <label for="phoneNumber" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Phone Number</label>
+          <input {...register("phoneNumber")} type="text" name="phoneNumber" id="phoneNumber" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
           {errors.phoneNumber && <span className='sm:text-sm text-xs text-red-600'>{errors.phoneNumber.message}</span>}
         </div>
         <div>
-          <label for="password" className="block mb-2 text-sm font-semibold text-gray-500">Password</label>
-          <input {...register("password")} type={isShowPass ? "text" : "password"} name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
+          <label for="password" className="block mb-2 text-xs md:text-sm font-semibold text-gray-500">Password</label>
+          <input {...register("password")} type={isShowPass ? "text" : "password"} name="password" id="password" placeholder="*****" className="w-full px-2 py-1 md:px-3 md:py-2 border rounded-md border-gray-400 bg-white text-black" disabled={!allowUpdate} />
           <Checkbox onChange={handleChangeShowPass}>Show password</Checkbox> <br />
           {errors.password && <span className='sm:text-sm text-xs text-red-600'>{errors.password.message}</span>}
         </div>
