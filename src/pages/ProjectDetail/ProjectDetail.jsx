@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { ShowCreateTaskModal, ShowEditTaskModal, getTaskDetailAction, updateStatusTaskAction } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
 import EditTaskModal from '../../components/EditTaskModal/EditTaskModal';
 import { useParams } from 'react-router-dom';
-import { getProjectDetailAction, removeUserProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { getProjectDetailAction, removeUserProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjectManageActions';
 import { useSelector } from 'react-redux';
 const { Search } = Input;
 

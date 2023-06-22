@@ -1,6 +1,5 @@
 import { Button, Checkbox } from 'antd';
 import React, { useState } from 'react'
-import { USER_LOGIN } from '../../util/settings/Config';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { SignInAction, editUserAction, resetEditUserSuccess } from '../../redux/slices/UserSlice/UserSlice';
 import Swal from 'sweetalert2';
-import { useEffect } from 'react';
 
 const schema = yup.object({
   email: yup

@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { getUserAction } from '../../redux/reducers/UsersManageReducer/UserManageActions';
 import { useSelector } from 'react-redux';
-import { assignUserProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { assignUserProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjectManageActions';
 import "./AddUser.scss"
 
 const title = <p className='border border-b-1 border-t-0 border-x-0'>Add members</p>;
@@ -43,12 +43,12 @@ function AddUser({ currentMembers, userId, creatorId, projectId, searchTerm }) {
                         let index = currentMembers ? currentMembers.findIndex(user => user.userId === member.userId) : -1;
 
                         if (index !== -1) {
-                            // Swal.fire({
-                            //     icon: 'error',
-                            //     title: 'Add member failed.',
-                            //     text: 'This user was already added to the project.',
-                            //     confirmButtonColor: "#1677ff"
-                            // });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Add member failed.',
+                                text: 'This user was already added to the project.',
+                                confirmButtonColor: "#1677ff"
+                            });
                         }
                     }}>
                         <Avatar size={'small'} className='mr-2' title={member.name} src={member.avatar} key={member.userId} />

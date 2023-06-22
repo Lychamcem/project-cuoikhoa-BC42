@@ -1,13 +1,12 @@
-import { Avatar, Button, Dropdown, Modal, Popover, Select, Slider, Space, Tag } from 'antd'
+import { Dropdown, Modal, Slider, Space, Tag } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { HideCreateTaskModal, createTaskAction, resetCreateTaskSuccess } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
 import { Editor } from '@tinymce/tinymce-react';
-import AddUser from '../AddUser/AddUser';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getProjectDetailAction, setListProjectsAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { getProjectDetailAction, setListProjectsAction } from '../../redux/reducers/ProjectManageReducer/ProjectManageActions';
 import { Controller, useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { SHOW_SIDER } from '../../redux/reducers/ProjectManageReducer/ProjectManageTypes';
 import EditProject from '../../components/EditProject/EditProject';
 import { useNavigate } from 'react-router-dom';
-import { deleteProjectAction, getProjectDetailAction, removeUserProjectAction, setListProjectsAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { deleteProjectAction, getProjectDetailAction, removeUserProjectAction, setListProjectsAction } from '../../redux/reducers/ProjectManageReducer/ProjectManageActions';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { ShowCreateTaskModal } from '../../redux/slices/TaskManageSlice/TaskManageSlice';

@@ -6,7 +6,7 @@ import { Editor } from '@tinymce/tinymce-react';
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { updateProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { updateProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjectManageActions';
 
 const schema = yup.object({
     projectName: yup

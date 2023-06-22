@@ -2,7 +2,7 @@ import { Avatar, Button, Dropdown, Modal, Slider, Space, Tag } from 'antd'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { HideEditTaskModal, deleteCommentAction, deleteTaskAction, getAllCommentAction, getTaskDetailAction, resetEditTaskSuccess, resetListComment, updateCommentAction, updateStatusTaskAction, updateTaskAction } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
+import { HideEditTaskModal, deleteCommentAction, deleteTaskAction, getAllCommentAction, resetEditTaskSuccess, resetListComment, updateCommentAction, updateTaskAction } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
 import { Editor } from '@tinymce/tinymce-react';
 import {
     LinkOutlined,
@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { insertCommentAction } from '../../redux/slices/TaskManageSlice/TaskManageSlice';
-import { getProjectDetailAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { getProjectDetailAction } from '../../redux/reducers/ProjectManageReducer/ProjectManageActions';
 
 const schema = yup.object({
     taskName: yup

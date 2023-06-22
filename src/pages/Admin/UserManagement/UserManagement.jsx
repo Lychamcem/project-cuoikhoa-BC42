@@ -1,4 +1,4 @@
-import { Button, Checkbox, Drawer, Table, Input } from 'antd'
+import { Button, Drawer, Table, Input } from 'antd'
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -15,10 +15,6 @@ const schema = yup.object({
         .string()
         .required("*Required")
         .email("Email has to be in the right format"),
-    // password: yup
-    //     .string()
-    //     .required("*Required")
-    //     .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, "Password must have at least 8 characters, including at least 1 alphabet, 1 digit and 1 special character"),
     name: yup
         .string()
         .required("*Required")
@@ -89,7 +85,6 @@ function UserManagement() {
     ];
 
     const [openSider, setOpenSider] = useState(false);
-    // const [isShowPass, setIsShowPass] = useState(false);
     const [userSelected, setUserSelected] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const { userList } = useSelector(state => state.UsersManageReducer);
@@ -138,10 +133,6 @@ function UserManagement() {
             setSearchTerm(event.target.value);
         }, 1000);
     }
-
-    // const handleChangeShowPass = () => {
-    //     setIsShowPass(!isShowPass);
-    // };
 
     const onClose = () => {
         setOpenSider(false);

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjcetManageActions';
+import { createProjectAction } from '../../redux/reducers/ProjectManageReducer/ProjectManageActions';
 import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object({

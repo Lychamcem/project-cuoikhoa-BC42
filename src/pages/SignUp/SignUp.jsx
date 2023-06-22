@@ -87,7 +87,7 @@ function SignUp() {
   const handleChangeShowPass = () => {
     setIsShowPass(!isShowPass);
   };
-
+  console.log(1);
   return (
     <div className="flex flex-col w-4/5 max-w-md p-6 rounded-md sm:p-10 border border-2 shadow-xl">
       <div className="mb-8 text-center">

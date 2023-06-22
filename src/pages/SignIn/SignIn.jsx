@@ -46,7 +46,7 @@ function SignIn() {
       title: 'Sign in successfully !',
       showConfirmButton: false,
       timer: 1500
-    })
+    });
 
     const url = searchParams.get("redirectUrl") || '/';
     return <Navigate to={url} replace />
