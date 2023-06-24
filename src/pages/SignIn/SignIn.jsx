@@ -96,7 +96,7 @@ function SignIn() {
             {errors.password && <span className='sm:text-sm text-xs text-red-600'>{errors.password.message}</span>}
           </div>
           <div className="my-6 space-y-4">
-            <button aria-label="Login with Facebook" role="button" className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 border-gray-400 focus:ring-blue-400 text-black hover:text-gray-600">
+            <button aria-label="Login with Facebook" type="button" className="flex items-center justify-center w-full p-4 space-x-4 border rounded-md focus:ring-2 focus:ring-offset-1 border-gray-400 focus:ring-blue-400 text-black hover:text-gray-600">
               <i className="fab fa-facebook text-xl transition-all duration-500"></i>
               <p className='transition-all duration-500'>Login with Facebook</p>
             </button>
